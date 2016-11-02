@@ -1,0 +1,26 @@
+
+body.ready
+    .nav-login
+        display: block
+
+// 页面加载 loading 动画
+.page-loading
+    display: block
+    margin: 0px auto
+    font-size: 40px
+    width: 40px
+    height: 40px
+    color: #ccc
+    animation: page-loading-animate 1s infinite linear
+    -webkit-animation: page-loading-animate 1s infinite linear
+
+@keyframes page-loading-animate {
+    0% {
+        transform: rotate(0deg)
+    }
+    100% {
+        transform: rotate(360deg)
+    }
+}
+
+
