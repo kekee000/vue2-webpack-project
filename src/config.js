@@ -4,5 +4,11 @@
  */
 
 export default {
-
+    // log相关
+    log: {
+        url: '//log?',
+        data: {
+            oper_act: 'vue2'
+        }
+    }
 };
