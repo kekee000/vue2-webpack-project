@@ -3,6 +3,8 @@
   "version": "1.0.0",
   "description": "vue2 webpack project boilerplate",
   "author": "kekee000 <kekee000@gmail.com>",
+  "dataTypeDesc": "dataType字段设置调试的数据从哪来，combine后台数据，mock mock的数据",
+  "dataType": "mock",
   "scripts": {
     "dev": "sh dev.sh",
     "build": "sh build.sh",

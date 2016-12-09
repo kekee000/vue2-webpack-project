@@ -1,6 +1,17 @@
 // see http://vuejs-templates.github.io/webpack for documentation.
 var path = require('path')
 var ip = getIPAdress();
+var pkg = require('../package.json');
+
+// 代理的地址，默认从mock中获取
+var proxyUrl = 'http://' + ip + ':8080';
+
+// 数据从后台获取
+if (pkg.dataType === 'combine') {
+  proxyUrl = 'http://' + ip + ':8001';
+}
+
+
 module.exports = {
   build: {
     env: require('./prod.env'),
@@ -23,6 +34,8 @@ module.exports = {
     assetsSubDirectory: 'asset',
     assetsPublicPath: '/',
     proxyTable: {
+        '^/login/**': proxyUrl,
+        '^/logout': proxyUrl,
         '^/api/**': {
             target: 'http://' + ip + ':8080'
         }

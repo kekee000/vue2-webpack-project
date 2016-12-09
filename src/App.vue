@@ -18,24 +18,41 @@
         </nav>
         <side-bar :cur="sidebar"></side-bar>
         <router-view class="viewport"></router-view>
+        <modal-dialog title="登录平台" :show="loginDialog.show" :options="{skin: 'modal-login'}">
+            <p>您还没有登录，请登录后进入平台。</p>
+            <div slot="footer" class="gap-bottom gap-left">
+                <button class="btn btn-dark"
+                    @click="doLogin">登录</button>
+                <a class="gap-left"href="https://passport.baidu.com/">注册</a>
+            </div>
+        </modal-dialog>
     </div>
 </template>
 
 <script>
 import SideBar from './views/SideBar.vue'
 import user from './user'
+import ModalDialog from './components/ModalDialog.vue'
+
 export default {
+    components: {
+        SideBar,
+        ModalDialog
+    },
     name: 'app',
     data () {
         return {
             user: user.get(),
+            loginDialog: {
+                show: user.get().role === 'visitor'
+            },
             sidebar: ''
         }
     },
-    mounted () {
-    },
-    components: {
-        SideBar
+    methods: {
+        doLogin () {
+            window.location.href = this.loginUrl
+        }
     }
 }
 </script>

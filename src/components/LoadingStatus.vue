@@ -12,10 +12,10 @@ export default {
     computed: {
         listClass () {
             if (this.loading) {
-                return 'table-list-loading'
+                return 'ui-loading'
             }
             else if (!this.loading && !this.records) {
-                return 'table-list-norecord'
+                return 'ui-loading-norecord'
             }
             return ''
         },
@@ -28,8 +28,8 @@ export default {
 }
 </script>
 <style lang="stylus">
-.table-list-norecord,
-.table-list-loading
+.ui-loading-norecord,
+.ui-loading
     line-height: 100px
     color: #ccc
     text-align: center

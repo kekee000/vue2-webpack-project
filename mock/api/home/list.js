@@ -7,6 +7,8 @@ module.exports = function (req) {
     return {
         status: 0,
         data: {
+            page: (+req.query.page || 1),
+            total: 10,
             list: [
                 {
                     id: '1', // 编号

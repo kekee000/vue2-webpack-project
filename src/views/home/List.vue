@@ -24,20 +24,26 @@
                 </tr>
             </tbody>
         </table>
+        <pager :total="total" :page="page" @change="pageChange" class="gap-top"></pager>
         <loading-status :loading="loading" :records="list.length"></loading-status>
     </section>
 </template>
 <script>
-import LoadingStatus from '../../components/LoadingStatus.vue'
+import Pager from 'components/Pager.vue'
+import LoadingStatus from 'components/LoadingStatus.vue'
+import loading from '../../loading'
+
 export default {
     components: {
-        LoadingStatus
+        LoadingStatus,
+        Pager
     },
     data () {
         return {
             query: '',
             list: [],
             page: 1,
+            total: 1,
             loading: 1
         };
     },
@@ -45,14 +51,19 @@ export default {
         this.refresh()
     },
     methods: {
+        pageChange (page) {
+            this.page = page;
+            this.refresh();
+        },
         refresh () {
             this.$datasource.get('list', {
                 page: this.page,
                 query: this.query
             }).then((data) => {
                 this.loading = 0
-                this.list = data.list;
-                this.page = data.page;
+                this.list = data.list
+                this.page = data.page
+                this.total = data.total
             });
         },
         doDel (row) {
@@ -62,6 +73,9 @@ export default {
             this.$datasource.post('del', {id: row.id})
                 .then((data) => {
                     this.list.splice(this.list.indexOf(row), 1)
+                    loading.show('操作成功', 2000)
+                }, (data) => {
+                    loading.show(data.statusInfo || '操作失败', 2000)
                 })
         }
     }
